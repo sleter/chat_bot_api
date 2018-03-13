@@ -4,10 +4,14 @@ var words = {
   'bad': -1
 }
 
+//var spawn = require('child_process').spawn;
+//var pythonProcess = spawn('python', ['path/to/script.py', arg1]);
+
 console.log('server is starting');
 
 var express = require('express');
 var app = express();
+var path = require('path');
 var server = app.listen(8000, listening);
 
 function listening(){
@@ -15,6 +19,11 @@ function listening(){
 }
 
 app.use(express.static('website'));
+
+app.get('/info', function(req, res){
+  res.sendFile(path.join(__dirname+'/website/info.html'));
+});
+
 
 app.get('/add/:catchword/:score?', addInfo);
 
